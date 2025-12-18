@@ -1,32 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Smart Travel Planner</title>
-    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0ku_JAxG2yYPtQ1m3e0XNY3vaw5bL8IhHBg&s">
+    <link
+      rel="icon"
+      href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0ku_JAxG2yYPtQ1m3e0XNY3vaw5bL8IhHBg&s"
+    />
 
-    <link rel="stylesheet" href="./output.css">
-</head>
-<body class="bg-linear-to-br from-sky-300 to-sky-300 min-h-screen">
+    <link rel="stylesheet" href="./output.css" />
+  </head>
+  <body class="bg-linear-to-br from-sky-300 to-sky-300 min-h-screen">
     <!-- Navbar -->
-     <nav class="bg-white shadow-md">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="flex justify-between items-center h-16">
-                <div class="text-xl font-bold text-blue-600">SmartTravel</div>
-            </div>
-            <div class="hiddden md:flex space-x-6 ">
-                <a href="Home.html" class="text-gray-700 hover:text-blue-600">Home</a>
-                <a href="Destination.html" class="text-gray-700 hover:text-blue-600">Destination</a>
-                <a href="weather.html" class="text-gray-700 hover:text-blue-600">Weather</a>
-                <a href="place.html" class="text-gray-700 hover:text-blue-600">Place</a>
-               
-            </div>
+    <nav class="bg-white shadow-md">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex justify-between items-center h-16">
+          <div class="text-xl font-bold text-blue-600">SmartTravel</div>
+          <div class="hidden md:flex space-x-6">
+          <a href="travel.html" class="text-gray-700 hover:text-blue-600">Home</a>
+
+          <a href="destination.html" class="text-gray-700 hover:text-blue-600"
+            >Destination</a
+          >
+          <a href="weather.html" class="text-gray-700 hover:text-blue-600"
+            >Weather</a
+          >
+          <a href="place.html" class="text-gray-700 hover:text-blue-600"
+            >Place</a
+          >
+          <a href="budget.html" class="text-gray-700 hover:text-blue-600">Budget</a>
         </div>
-     </nav>
- 
+        </div>
+      </div>
+    </nav>
 
+    <!-- Main content -->
+     <div class="flex items-center justify-center mt-20">
+      <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md ">
+        <h1 class="text-2xl font-bold text-center mb-6 text-sky-500">Smart Travel Planner</h1>
+        <input type="text" id="cityInput" placeholder="Enter City/In-Country" class="w-full border p-3 rounded mb-4">
+        <button id="searchBtn" class="w-full bg-sky-500 text-white py-3 hover:bg-sky-700 rounded transition">Plan My Trip</button>
+      </div>
+     </div>
 
-
-</body>
+     <script src="./js/main.js"></script>
+  </body>
 </html>
