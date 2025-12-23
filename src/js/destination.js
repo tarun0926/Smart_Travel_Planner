@@ -4,9 +4,18 @@ const params = new URLSearchParams(window.location.search);
 const city = params.get("city")
 
 const cityName = document.querySelector("#cityName");
+const loading = document.querySelector("#loading");
+const cityInfoBox = document.querySelector("#cityInfo");
+const errorBox = document.querySelector("#error");
 
-let GEODB_API_KEY = "0195a03772mshbea4f740b029fc9p13095bjsn8ee1b9144628"; //starting point
-let GEODB_HOST = "wft-geo-db.p.rapidapi.com"; //end point
+const lat = document.querySelector("#lat");
+const lon = document.querySelector("#lon");
+const country = document.querySelector("#country");
+const state = document.querySelector("#state");
+const population = document.querySelector("#population");
+
+let GEODB_API_KEY = "0195a03772mshbea4f740b029fc9p13095bjsn8ee1b9144628"; //starting point //authentication permission) API key. 
+let GEODB_HOST = "wft-geo-db.p.rapidapi.com"; //end point //server addrres(Host) 
 
 if(city){
     cityName.textContent = city;
@@ -39,12 +48,30 @@ if(city){
             
             
             //Display City Info
+
+            lat.textContent = cityData.latitude;
+            lon.textContent = cityData.longitude;
+            country.textContent = cityData.country;
+            state.textContent = cityData.region || "N/A";
+            population.textContent = cityData.population ? cityData.population.toLocaleString() : "N/A";
+
+            loading.classList.add("hidden");
+            cityInfoBox.classList.remove("hidden");
+
+
+
+
+
         }catch(error){
             console.log(error); 
+            loading.classList.add("hidden");
+            errorBox.classList.remove("hidden");
+
         }
     }
 
     fetchCityDetails(city);
 }else{
     cityName.textContent = "Unknown City"
+    loading.classList.add("hidden");
 }
