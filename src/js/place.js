@@ -20,7 +20,7 @@ if (!city) {
     try {
       // Getting Lat & Lon from openweather api
       const geoRes = await fetch(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${openweathermap_apikey}`
+        `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${openweathermap_apikey}`,
       );
       const geoData = await geoRes.json();
 
@@ -30,7 +30,7 @@ if (!city) {
 
       // Get Places From GeoAPIfy
       const placesRes = await fetch(
-        `https://api.geoapify.com/v2/places?categories=tourism.sights&filter=circle:${lon},${lat},12000&limit=12&apiKey=${geoapify_apikey} `
+        `https://api.geoapify.com/v2/places?categories=tourism.sights&filter=circle:${lon},${lat},12000&limit=12&apiKey=${geoapify_apikey} `,
       );
 
       if (!placesRes.ok) throw new Error("Places API Failed");
@@ -38,9 +38,47 @@ if (!city) {
       const data = await placesRes.json();
       loading.classList.add("hidden");
 
-      console.log(data);
-      
+      if (!data.features.length) throw new Error("No Places Found");
 
+      placeBox.classList.remove("hidden");
+      placeBox.innerHTML = "";
+
+      for (let place of data.features) {
+        let imageUrl = `https://placehold.co/400x300?text=Tourist+Spot`;
+        try {
+          const query = place.properties.name
+            ? place.properties.name + " " + city + "tourism"
+            : city + "tourism";
+
+          const unsplashRes = await fetch(
+            `https://api.unsplash.com/search/photos?query=${query}&per_page=1&client_id=${unsplash_apikey}`,
+          );
+
+          const unsplashData = await unsplashRes.json();
+          console.log(unsplashData);
+
+          if (unsplashData.results && unsplashData.results.length > 0) {
+            imageUrl = unsplashData.results[0].urls.small;
+          }
+        } catch (error) {
+          console.log(error, "Unsplash Image Not Found");
+        }
+        let div = document.createElement("div");
+
+        div.className =
+          "bg-white rounded-xl shadow hover: shadow-lg hover:scale-105 transition overflow-hidden";
+
+        div.innerHTML = `<img src="${imageUrl}" alt="${place.properties.name}" class="w-full h-40 object-cover" /> 
+        <div class="p-4">
+        <h3 class="font-bold text-lg text-green-700 mb-1">${
+          place.properties.name || "Tourist Place"
+        } </h3>
+        <p class="text-sm text-gray-600">${place.properties.city || city}<p/>
+        </div>
+        `;
+        placeBox.appendChild(div);
+      }
+      console.log(data);
     } catch (error) {
       console.log("Places Error:", error.message);
       loading.classList.add("hidden");
